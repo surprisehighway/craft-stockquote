@@ -19,7 +19,7 @@ Stock Quote works on Craft 2.4.x and Craft 2.5.x.
 ### Single Quote
 
 ```
-{% set quote = craft.stockQuote.getQuote('RLGT') %}
+{% set quote = craft.stockQuote.getQuote('GOOG') %}
 
 {{ quote.symbol }}
 {{ quote.name }}
