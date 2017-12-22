@@ -2,13 +2,13 @@
 /**
  * Stock Quote plugin for Craft CMS
  *
- * Simple real-time stock quotes from Yahoo Finance.
+ * Simple stock quotes from the Alpha Vantage api.
  *
  * @author    Mike Kroll
  * @copyright Copyright (c) 2017 Surprise Highway
  * @link      http://surprisehighway.com
  * @package   StockQuote
- * @since     1.0.0
+ * @since     1.1.0
  */
 
 namespace Craft;
@@ -27,7 +27,7 @@ class StockQuotePlugin extends BasePlugin
 
     public function getDescription()
     {
-        return Craft::t('Stock quotes from Yahoo');
+        return Craft::t('Stock quotes from the Alpha Vantage api');
     }
 
     public function getDocumentationUrl()
@@ -42,7 +42,7 @@ class StockQuotePlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '1.0.0';
+        return '1.1.0';
     }
 
     public function getSchemaVersion()
@@ -64,4 +64,20 @@ class StockQuotePlugin extends BasePlugin
     {
         return false;
     }
+
+    public function getSettingsHtml()
+    {
+       return craft()->templates->render('stockquote/settings', array(
+           'settings' => $this->getSettings()
+       ));
+    }
+
+    protected function defineSettings()
+    {
+        return array(
+            'apiKey' => array( AttributeType::String, 'label' => 'API Key', 'default' => '', 'required' => true)
+        );
+    }
+
+
 }

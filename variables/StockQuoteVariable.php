@@ -20,18 +20,8 @@ class StockQuoteVariable
      *
      * {{ craft.stockQuote.getQuote('GOOG') }}
      */
-    public function getQuote($symbol = null)
+    public function getQuote($symbol = null, $expire = 1200)
     {
-        return craft()->stockQuote_yahoo->getQuote($symbol)[0];
-    }
-
-    /**
-     * Fetch an array of quotes for multiple symbols.
-     *
-     * {{ craft.stockQuote.getQuote('GOOG,MSFT') }}
-     */
-    public function getQuotes($symbols = null)
-    {
-        return craft()->stockQuote_yahoo->getQuote($symbols);
+        return craft()->stockQuote_alphaVantage->getQuote($symbol, $expire);
     }
 }

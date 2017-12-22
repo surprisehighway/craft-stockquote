@@ -1,0 +1,14 @@
+{% import '_includes/forms' as forms %}
+
+<h2>Apha Vantage API Key</h2>
+<p>The Alpha Venture stock service requires a <a href="https://www.alphavantage.co/support/#api-key" target="_blank">free API key</a>.</p>
+
+{{ forms.textField({
+    label: 'API Key',
+    instructions: 'Enter your Alpha Vantage API Key here.',
+    id: 'apiKey',
+    name: 'apiKey',
+    value: settings['apiKey'],
+    errors: settings.getErrors('apiKey')
+    })
+}}

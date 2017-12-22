@@ -1,6 +1,8 @@
 # Stock Quote plugin for Craft CMS
 
-Simple real-time stock quotes from Yahoo Finance.
+Simple real-time stock quotes from the [Alpha Vantage API](https://www.alphavantage.co/documentation/).
+
+The Alpha Vantage API is free, but you must [register to receive and API Key](https://www.alphavantage.co/support/#api-key).
 
 ## Installation
 
@@ -12,56 +14,55 @@ To install Stock Quote, follow these steps:
 4. Install plugin in the Craft Control Panel under Settings > Plugins
 5. The plugin folder should be named `stockquote` for Craft to see it.  GitHub recently started appending `-master` (the branch name) to the name of the folder for zip file downloads.
 
-Stock Quote works on Craft 2.4.x and Craft 2.5.x.
+Stock Quote works on Craft 2.6.x.
+
+## Settings
+
+1. Navigate to `Settings > Stock Quote`.
+2. Enter your [Alpha Vantage API Key](https://www.alphavantage.co/support/#api-key).
+3. Save the plugin settings.
 
 ## Usage
 
-### Single Quote
-
 ```
-{% set quote = craft.stockQuote.getQuote('GOOG') %}
+{% set quote = craft.stockQuote.getQuote('MSFT') %}
 
-{{ quote.symbol }}
-{{ quote.name }}
-{{ quote.last }}
-{{ quote.date }}
-{{ quote.time }}
-{{ quote.change }}
-{{ quote.open }}
-{{ quote.high }}
-{{ quote.low }}
-{{ quote.volume }}
-{{ quote.previous }}
-```
-### Multiple Symbols
-
-```
-{% set quotes = craft.stockQuote.getQuotes('GOOG,MSFT') %}
-
-{% for quote in quotes %}
+{% if quote|length %}
 	{{ quote.symbol }}
-	{{ quote.date }}
-	{{ quote.time }}
+	{{ quote.timezone }}
+	{{ quote.last }}
+	{{ quote.date|date('F j, Y g:i a') }}
 	{{ quote.change }}
-{% endfor %}
+	{{ quote.open }}
+	{{ quote.high }}
+	{{ quote.low }}
+	{{ quote.volume }}
+	{{ quote.previous }}
+	{{ quote.percent }}
+{% endif %}
 ```
 
-### Caching
+#### Parameters
 
-Depending on your site traffic it might make sense to cache the results
-instead of querying Yahoo on every page load.
+* **Symbol**: Required.    
+* **Expire**: Optional. Cache duration in seconds. Default is `1200` (20 minutes).
+
+## Refresh interval and caching
+
+Stock Quote uses the [Alpha Vantage Time Series Daily API](https://www.alphavantage.co/documentation/#daily). 
+
+The results from the API are close to real-time, but the plugin caches results. You can set a cache expiration duration (in seconds) to control the rate of refresh. Default is `1200` (20 minutes).
+
+Note that if the API is unavailable or returns an error or incomplete data the plugin will attempt to fallback to the last valid cached data.
+
+Wrapping the plugin output in a conditional using the Twig’s length filter is recommended.
 
 ```
-{% cache using key "stockquote" for 5 mins %}
+{% set quote = craft.stockQuote.getQuote('MSFT', 300) %}
 
-	{% set quote = craft.stockQuote.getQuote('RLGT') %}
-
-	{{ quote.symbol }}
-	{{ quote.date }}
-	{{ quote.time }}
-	{{ quote.change }}
-
-{% endcache %}
+{% if quote|length %}
+	{{ quote.last }}
+{% endif %}
 ```
 
 Brought to you by [Surprise Highway](http://surprisehighway.com)

@@ -19,16 +19,16 @@ class StockQuote_QuoteModel extends BaseModel
     {
         return array(
             'symbol'   => AttributeType::String,
-            'name'     => AttributeType::String,
+            'timezone' => AttributeType::String,
             'last'     => AttributeType::String,
             'date'     => AttributeType::String,
-            'time'     => AttributeType::String,
             'change'   => AttributeType::String,
             'open'     => AttributeType::String,
             'high'     => AttributeType::String,
             'low'      => AttributeType::String,
             'volume'   => AttributeType::String,
             'previous' => AttributeType::String,
+            'percent'  => AttributeType::String
         );
     }
 }
