@@ -86,14 +86,14 @@ class StockQuote_AlphaVantageService extends BaseApplicationComponent
         $quote = new StockQuote_QuoteModel();
         $quote->symbol   = $symbol;
         $quote->timezone = $timezone;
-        $quote->last     = $lastClose;
+        $quote->last     = number_format($lastClose, 2);
         $quote->date     = $lastRefresh;
         $quote->change   = number_format($change, 2);
-        $quote->open     = $open;
-        $quote->high     = $high;
-        $quote->low      = $low;
+        $quote->open     = number_format($open, 2);
+        $quote->high     = number_format($high, 2);
+        $quote->low      = number_format($low, 2);
         $quote->volume   = $last['5. volume'];
-        $quote->previous = $prevClose;
+        $quote->previous = number_format($prevClose, 2);
         $quote->percent  = $percent;
 
         return $quote;

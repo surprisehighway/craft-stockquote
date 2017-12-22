@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2017 Surprise Highway
  * @link      http://surprisehighway.com
  * @package   StockQuote
- * @since     1.1.0
+ * @since     1.1.1
  */
 
 namespace Craft;
@@ -42,7 +42,7 @@ class StockQuotePlugin extends BasePlugin
 
     public function getVersion()
     {
-        return '1.1.0';
+        return '1.1.1';
     }
 
     public function getSchemaVersion()

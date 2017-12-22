@@ -1,6 +1,6 @@
 # Stock Quote Changelog
 
-## 1.1.0 -- 2017-22-28
+## 1.1.1 -- 2017-22-28
 
 * [Added] Switched to Alpha Vantage API.
 * [Added] Add plugin caching rather than relying on template caching.
